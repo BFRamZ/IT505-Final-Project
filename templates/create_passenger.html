@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+{% if passenger %}
+    {% set heading = "View / update Passenger" %}
+    {% set pass_id = passenger[0] %}
+    {% set first_name = passenger[1] %}
+    {% set last_name = passenger[2] %}
+    {% set seat_level = passenger[3] %}
+    {% set seat_number = passenger[4] %}
+    
+{% else %}
+    {% set heading = "Add Passenger" %}
+{% endif %}
+
+</head>
+
+<body>
+<h2> <a href="/"> HOME </a> </h2>
+
+<h2>{{heading}}</h2>
+
+<form method="POST">
+  <label for="pass_id">Passenger ID:</label><br>
+  <input type="text" id="pass_id" name="pass_id" value="{{pass_id}}"
+      {% if passenger %} disabled {% endif %}>
+      
+  <br>    
+  <label for="first_name">First Name:</label><br>
+  <input type="text" id="first_name" name="first_name" value="{{first_name}}"><br>
+  <label for="last_name">Last Name:</label><br>
+  <input type="text" id="last_name" name="last_name" value="{{last_name}}"><br>
+  <label for="seat_level">Seat Level:</label><br>
+  <input type="text" id="seat_level" name="seat_level" value="{{seat_level}}"><br>
+  <label for="seat_number">Seat Number:</label><br>
+  <input type="integer" id="seat_number" name="seat_number" value="{{seat_number}}"><br><br>
+  <input type="submit" value="Submit">
+  
+</form> 
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+</body>
+</html>

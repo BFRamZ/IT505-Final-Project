@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+{% if flight %}
+    {% set heading = "View / update flight" %}
+    {% set flight_id = flight[0] %}
+    {% set source = flight[1] %}
+    {% set destination = flight[2] %}
+    {% set flight_time = flight[3] %}
+    {% set num_seats = flight[4] %}
+    
+{% else %}
+    {% set heading = "Add flight" %}
+{% endif %}
+
+</head>
+
+<body>
+<h2> <a href="/"> HOME </a> </h2>
+
+<h2>{{heading}}</h2>
+
+<form method="POST">
+  <label for="flight_id">Flight ID:</label><br>
+  <input type="text" id="flight_id" name="flight_id" value="{{flight_id}}"
+      {% if flight %} disabled {% endif %}>
+      
+  <br>    
+  <label for="source">Source:</label><br>
+  <input type="text" id="source" name="source" value="{{source}}"><br>
+  <label for="destination">Destination:</label><br>
+  <input type="text" id="destination" name="destination" value="{{destination}}"><br>
+  <label for="flight_time">Flight Time:</label><br>
+  <input type="text" id="flight_time" name="flight_time" value="{{flight_time}}"><br>
+  <label for="num_seats">Number of Seats:</label><br>
+  <input type="integer" id="num_seats" name="num_seats" value="{{num_seats}}"><br><br>
+  <input type="submit" value="Submit">
+  
+</form> 
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+</body>
+</html>
