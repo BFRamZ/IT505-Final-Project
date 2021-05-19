@@ -62,6 +62,10 @@ class CLI:
             elif cmd == 'import_passenger_csv':
                 passenger = self.passenger.import_passenger_csv(args[0])
                 print(passenger)
+                
+            elif cmd == 'save_passenger_csv':
+                result = self.passenger.save_passenger_csv(args[0])
+                print(result)
             
             #----------------- flights-----------------------
             
@@ -84,6 +88,10 @@ class CLI:
             elif cmd == 'import_flight_csv':
                 passenger = self.flight.import_flight_csv(args[0])
                 print(passenger)
+                
+            elif cmd == 'save_flight_csv':
+                result = self.flight.save_flight_csv(args[0])
+                print(result)
             
            
             
