@@ -123,3 +123,30 @@ class Flight:
         
         #query = "PRAGM foreign_keys = ON;"
         #self.db.execute_query(query)
+        
+    def load_flight_csv(fn):
+        with open(fn) as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            line_count = 0
+            flight_count = 0
+            for row in csv_reader:
+                if line_count == 0:
+                    line_count += 1
+                else:
+                    
+                    if len(row) > 9 and row[0].isnumeric():
+                        
+                        flight_id = row[0]
+                        source = row[1]
+                        destination = row[2]
+                        flight_time = row[3]
+                        seats = row[4]
+                        
+                        Flight.create_flight(flight_id, source, destination, flight_time, seats)
+                        
+                        flight_count += 1
+                        
+                    else:
+                        pass
+                    line_count += 1
+            return f'loaded {flight_count} flights from {fn}'
