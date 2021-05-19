@@ -59,9 +59,22 @@ class Passenger:
             rstr = "Passenger not found"
             
         return rstr
+    
+    def view_passengers(self):
+        
+        rstr = "passengers:"
+        
+        query = "SELECT * from passengers"
+        
+        passengers = self.db.execute_read_query(query)
+        
+        for c in passengers:
+            title = c[3]
+            rstr += f"\n\t{title}"
+        return rstr
 
     
-    def create_passenger(self, pass_id, first, last, flight_time, seat):
+    def create_passenger(self, pass_id, first_name, last_name, class_level, seat_number):
         
         taken = self.select_passenger(pass_id)
         
@@ -70,15 +83,15 @@ class Passenger:
             
         else:
             query = """
-            INSERT INTO courses (pass_id, first, last, flight_time, seat)
+            INSERT INTO passengers (pass_id, first_name, last_name, class_level, seat_number)
             VALUES (?, ?, ?, ?, ?);
             """
-            self.db.execute_query(query, (pass_id, first, last, flight_time, seat, ))
+            self.db.execute_query(query, (pass_id, first_name, last_name, class_level, seat_number, ))
             
-            rstr = f"Created new passenger: {last}, {first} ID: {pass_id}"
+            rstr = f"Created new passenger: {last_name}, {first_name} ID: {pass_id}"
         '''    
         except IntegrityError as e:
-            print(f"create_course fail: {e}")
+            print(f"create_passenger fail: {e}")
         '''    
         return rstr
     
@@ -108,6 +121,6 @@ class Passenger:
         #self.db.execute_query(query)
         
     def __str__(self):
-        return f"{self.debt} {self.course_num} {self.title}"
+        return f"{self.debt} {self.passenger_num} {self.title}"
     
    

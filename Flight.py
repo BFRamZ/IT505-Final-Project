@@ -59,6 +59,19 @@ class Flight:
             rstr = "Flight not found"
             
         return rstr
+    
+    def view_flights(self):
+        
+        rstr = "flights:"
+        
+        query = "SELECT * from flights"
+        
+        flights = self.db.execute_read_query(query)
+        
+        for c in flights:
+            title = c[3]
+            rstr += f"\n\t{title}"
+        return rstr
 
     
     def create_flight(self, flight_id, source, destination, flight_time, seats):

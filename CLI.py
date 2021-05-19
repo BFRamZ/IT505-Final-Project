@@ -7,10 +7,10 @@ Created on Mon Apr 26 23:10:18 2021
 
 #Comment out input before submitting to Mimir
 
-# f = open('input2.txt','r')
-# def input(prompt=''):
-#     print(prompt, end='')
-#     return f.readline().strip()
+f = open('input2.txt','r')
+def input(prompt=''):
+    print(prompt, end='')
+    return f.readline().strip()
 
 class CLI:
     
@@ -59,9 +59,9 @@ class CLI:
                 passenger = self.passenger.delete_passengers()
                 print(passenger)
                 
-            elif cmd == 'import_passenger_csv':
-                passenger = self.passenger.import_passenger_csv(args[0])
-                print(passenger)
+            # elif cmd == 'import_passenger_csv':
+            #     passenger = self.passenger.import_passenger_csv(args[0])
+            #     print(passenger)
             
             #----------------- flights-----------------------
             
@@ -81,9 +81,9 @@ class CLI:
                 passenger = self.flight.delete_flights()
                 print(passenger)
                 
-            elif cmd == 'import_flight_csv':
-                passenger = self.flight.import_flight_csv(args[0])
-                print(passenger)
+            # elif cmd == 'import_flight_csv':
+            #     passenger = self.flight.import_flight_csv(args[0])
+            #     print(passenger)
             
            
             
@@ -106,13 +106,13 @@ if __name__=="__main__":
         "view_passenger": passenger.view_passenger,
         "view_passengers": passenger.view_passengers,
         "delete_passengers": passenger.delete_passengers,
-        "import_passenger_csv": passenger.import_passenger_csv,
+        # "import_passenger_csv": passenger.import_passenger_csv,
         
         "create_flight": flight.create_flight,
         "view_flight": flight.view_flight,
         "view_flights": flight.view_flights,
         "delete_flights": flight.delete_flights,
-        "import_flight_csv": passenger.import_flight_csv,
+        # "import_flight_csv": passenger.import_flight_csv,
         
         }
     
