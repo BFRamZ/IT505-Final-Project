@@ -13,6 +13,9 @@ view_flight 1
 view_flights
 
 #import
+delete_passengers
+import_passenger_csv passenger.csv.xlsx
+view_passengers
 
 exit
 
