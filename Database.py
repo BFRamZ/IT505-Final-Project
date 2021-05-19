@@ -32,65 +32,11 @@ class Database:
         cursor = self.connection.cursor()
         result = None
         try:
-            #print(params)
-            
-    def load_passenger_csv(fn):
-        with open(fn) as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=',')
-            line_count = 0
-            pass_count = 0
-            for row in csv_reader:
-                if line_count == 0:
-                    line_count += 1
-                else:
-                    
-                    if len(row) > 9 and row[0].isnumeric():
-                        
-                        pass_id = row[0]
-                        first = row[1]
-                        last = row[2]
-                        class_lvl = row[3]
-                        seat_num = row[4]
-                        
-                        Passenger.create_passenger(pass_id, first, last, class_lvl, seat_num)
-                        
-                        pass_count += 1
-                        
-                    else:
-                        pass
-                    line_count += 1
-            return f'loaded {pass_count} passengers from {fn}'
-        
-    def load_flight_csv(fn):
-        with open(fn) as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=',')
-            line_count = 0
-            flight_count = 0
-            for row in csv_reader:
-                if line_count == 0:
-                    line_count += 1
-                else:
-                    
-                    if len(row) > 9 and row[0].isnumeric():
-                        
-                        flight_id = row[0]
-                        source = row[1]
-                        destination = row[2]
-                        flight_time = row[3]
-                        seats = row[4]
-                        
-                        Flight.create_flight(flight_id, source, destination, flight_time, seats)
-                        
-                        flight_count += 1
-                        
-                    else:
-                        pass
-                    line_count += 1
-            return f'loaded {flight_count} flights from {fn}'
-            #print(query)
             cursor.execute(query, params)
             result = cursor.fetchall()
             return result
         except Error as e:
-            #print(f"The error '{e}' occured")
+            #print(f"The error '{e}' occurred")
             raise e
+            
+    

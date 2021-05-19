@@ -4,7 +4,7 @@ Created on Wed Apr 28 18:39:17 2021
 @author: BFRamZ
 """
 from sqlite3 import IntegrityError
-
+import csv
 class Passenger:
     
     def __init__(self, db):
@@ -124,7 +124,7 @@ class Passenger:
         #query = "PRAGM foreign_keys = ON;"
         #self.db.execute_query(query)
         
-    def load_passenger_csv(fn):
+    def import_passenger_csv(self, fn):
         with open(fn) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
             line_count = 0
