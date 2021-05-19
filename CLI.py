@@ -81,14 +81,14 @@ class CLI:
             
 if __name__=="__main__":
     
-    from database2 import Database
-    from passenger2 import passenger
-    from flight2 import flight
+    from Database import Database
+    from Passenger import Passenger
+    from Flight import Flight
     
     my_db = Database('my_database.sqlite')
     
-    passenger = passenger(my_db)
-    flight = flight(my_db)
+    passenger = Passenger(my_db)
+    flight = Flight(my_db)
     
     
     myCLI = CLI()

@@ -11,7 +11,7 @@ class Flight:
         self.db = db
         self.create_flights_table()
         
-    def create_courses_table(self):
+    def create_flights_table(self):
         query = """
             CREATE TABLE IF NOT EXISTS flights (
               flight_id INTEGER PRIMARY KEY AUTOINCREMENT,

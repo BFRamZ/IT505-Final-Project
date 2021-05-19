@@ -11,7 +11,7 @@ class Passenger:
         self.db = db
         self.create_passengers_table()
         
-    def create_courses_table(self):
+    def create_passengers_table(self):
         query = """
             CREATE TABLE IF NOT EXISTS passengers (
               pass_id INTEGER PRIMARY KEY AUTOINCREMENT,
