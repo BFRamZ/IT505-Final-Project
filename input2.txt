@@ -1,3 +1,10 @@
+# flight
+delete_flights
+create_flight 0 Boston Chicago 19 33
+create_flight 1 NewYork Boston 18 333
+view_flight 1
+view_flights
+
 # passenger
 delete_passengers
 create_passenger 0 dave smith first 12
@@ -5,20 +12,13 @@ create_passenger 1 tim jones bussiness 2
 view_passenger 0
 view_passengers
 
-# flight
-delete_flights
-create_flight 0 Boston Chicago 7hours 33
-create_flight 1 NewYork Boston 3hours 100
-view_flight 1
-view_flights
-
 #import
-#delete_passengers
-#import_passenger_csv passenger.csv.xlsx
-#view_passengers
+delete_passengers
+import_passenger_csv passenger.csv
+view_passengers
 
 delete_flights
-import_flight_csv bmw2.csv
+import_flight_csv flight.csv
 view_flights
 
 exit

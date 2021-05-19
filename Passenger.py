@@ -75,7 +75,7 @@ class Passenger:
             c = x[2]
             d = x[3]
             e = x[4]
-            rstr += f"\n\t{c}, {b}: ID({a}) Level({d}) Number({e})"
+            rstr += f"\n\t{c}, {b}: ID({a}) Flight ID({d}) Seat Number({e})"
         return rstr
 
     

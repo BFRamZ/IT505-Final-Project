@@ -87,7 +87,7 @@ class Flight:
             c = x[2]
             d = x[3]
             e = x[4]
-            rstr += f"\n\t{b} to {c}: ID({a}) Time({d}) Seats({e})"
+            rstr += f"\n\t{b} to {c}: ID({a}) Seats Taken({d}) Seats({e})"
         return rstr
 
     
