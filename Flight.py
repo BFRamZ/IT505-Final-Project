@@ -140,7 +140,7 @@ class Flight:
                         source = row[1]
                         destination = row[2]
                         flight_time = row[3]
-                        seats = row[4]
+                        seats = row[9]
                         
                         Flight.create_flight(flight_id, source, destination, flight_time, seats)
                         
