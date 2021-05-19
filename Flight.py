@@ -136,4 +136,5 @@ class Flight:
                 seats = row[4]
                         
                 self.create_flight(flight_id, source, destination, flight_time, seats)
-            return f'loaded {flight_count} flights from {fn}'
+                flight_count +=1
+        return f'loaded {flight_count} flights from {fn}'
