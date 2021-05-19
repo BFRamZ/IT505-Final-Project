@@ -68,9 +68,13 @@ class Flight:
         
         flights = self.db.execute_read_query(query)
         
-        for c in flights:
-            title = c[3]
-            rstr += f"\n\t{title}"
+        for x in flights:
+            a = x[0]
+            b = x[1]
+            c = x[2]
+            d = x[3]
+            e = x[4]
+            rstr += f"\n\t{b} to {c}: ID({a}) Time({d}) Seats({e})"
         return rstr
 
     

@@ -3,14 +3,14 @@ delete_passengers
 create_passenger 0 dave smith first 12
 create_passenger 1 tim jones bussiness 2
 view_passenger 0
-#view_passengers
+view_passengers
 
 # flight
 delete_flights
 create_flight 0 Boston Chicago 7hours 33
 create_flight 1 NewYork Boston 3hours 100
 view_flight 1
-#view_flights
+view_flights
 
 #import
 
