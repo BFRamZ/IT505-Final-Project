@@ -7,8 +7,9 @@ from sqlite3 import IntegrityError
 import csv
 class Passenger:
     
-    def __init__(self, db):
+    def __init__(self, db, flight):
         self.db = db
+        self.flight = flight
         self.create_passengers_table()
         
     def create_passengers_table(self):
@@ -17,8 +18,8 @@ class Passenger:
               pass_id INTEGER PRIMARY KEY AUTOINCREMENT,
               first_name TEXT NOT NULL,
               last_name TEXT NOT NULL,
-              class_level TEXT NOT NULL,
-              seat_number string DEFAULT 0
+              flight_id INTEGER NOT NULL,
+              seat_number TEXT NOT NULL
             );
             """
             
@@ -41,7 +42,7 @@ class Passenger:
         
         query = "SELECT * from passengers WHERE pass_id=?"
         
-        result = self.db.execute_read_query(query, (pass_id))
+        result = self.db.execute_read_query(query, (pass_id, ))
         
         return result
     
@@ -78,26 +79,33 @@ class Passenger:
         return rstr
 
     
-    def create_passenger(self, pass_id, first_name, last_name, class_level, seat_number):
+    def create_passenger(self, pass_id, first_name, last_name, flight_id, seat_number):
         
-        taken = self.select_passenger(pass_id)
-        
-        if taken:
-            rstr = f"Passenger ID {pass_id} is taken."
-            
+        seats_taken = self.flight.select_flight_seats_taken(flight_id)
+        seats = self.flight.select_flight_seats(flight_id)
+
+        if(seats == seats_taken):
+            print(f"Could not create {first_name} {last_name} because flight {flight_id} was full")
         else:
-            query = """
-            INSERT INTO passengers (pass_id, first_name, last_name, class_level, seat_number)
-            VALUES (?, ?, ?, ?, ?);
-            """
-            self.db.execute_query(query, (pass_id, first_name, last_name, class_level, seat_number, ))
             
-            rstr = f"Created new passenger: {last_name}, {first_name} ID: {pass_id}"
-        '''    
-        except IntegrityError as e:
-            print(f"create_passenger fail: {e}")
-        '''    
-        return rstr
+            new_seats_taken = [0]
+            out = new_seats_taken[0] + (seats_taken[0][0]+1)
+            self.flight.update_flight(flight_id, out)
+        
+            taken = self.select_passenger(pass_id)
+            
+            if taken:
+                rstr = f"Passenger ID {pass_id} is taken."
+                
+            else:
+                query = """
+                INSERT INTO passengers (pass_id, first_name, last_name, flight_id, seat_number)
+                VALUES (?, ?, ?, ?, ?);
+                """
+                self.db.execute_query(query, (pass_id, first_name, last_name, flight_id, seat_number, ))
+                
+                rstr = f"Created new passenger: {last_name}, {first_name} ID: {pass_id}" 
+            return rstr
     
     def delete_passenger(self, pass_id):
         
@@ -133,9 +141,9 @@ class Passenger:
                 first = row[1]
                 last = row[2]
                 class_lvl = row[3]
-                seat_num = row[9]
+                seat_num = row[4]
                         
-                Passenger.create_passenger(pass_id, first, last, class_lvl, seat_num)
+                self.create_passenger(pass_id, first, last, class_lvl, seat_num)
                         
                 pass_count += 1
         return f'loaded {pass_count} passengers from {fn}'

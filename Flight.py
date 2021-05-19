@@ -17,25 +17,38 @@ class Flight:
               flight_id INTEGER PRIMARY KEY AUTOINCREMENT,
               source STRING NOT NULL,
               destination TEXT NOT NULL,
-              flight_time TEXT NOT NULL,
-              seats INTEGER DEFAULT 0
+              seats_taken INTEGER NOT NULL,
+              seats INTEGER NOT NULL
             );
             """
             
         self.db.execute_query(query)
     
-    def update_flight(self, flight_id, attr, val):
+    def update_flight(self, flight_id, val):
         
-        if attr in self.headers:
-            sql = f''' UPDATE flights
-                SET {attr}=?
-                WHERE flight_id=?'''
+        sql = ''' UPDATE flights
+            SET seats_taken=?
+            WHERE flight_id=?'''
             
-            params = (val, flight_id)
-            self.db.execute_query(sql, params)
-            return(f"Updated {attr} for Flight {flight_id}")
-        else:
-            return("Could not update: Invalid attribute")
+        params = (val, flight_id)
+        self.db.execute_query(sql, params)
+        return("Updated seats_taken for Flight {flight_id}")
+    
+    def select_flight_seats(self, flight_id):
+        
+        query = "SELECT seats from flights WHERE flight_id=?"
+        
+        result = self.db.execute_read_query(query, (flight_id, ))
+        
+        return result
+    
+    def select_flight_seats_taken(self, flight_id):
+        
+        query = "SELECT seats_taken from flights WHERE flight_id=?"
+        
+        result = self.db.execute_read_query(query, (flight_id, ))
+        
+        return result
     
     def select_flight(self, flight_id):
         
@@ -78,7 +91,7 @@ class Flight:
         return rstr
 
     
-    def create_flight(self, flight_id, source, destination, flight_time, seats):
+    def create_flight(self, flight_id, source, destination, seats_taken, seats):
         
         taken = self.select_flight(flight_id)
         
@@ -87,10 +100,10 @@ class Flight:
             
         else:
             query = """
-            INSERT INTO flights (flight_id, source, destination, flight_time, seats)
+            INSERT INTO flights (flight_id, source, destination, seats_taken, seats)
             VALUES (?, ?, ?, ?, ?);
             """
-            self.db.execute_query(query, (flight_id, source, destination, flight_time, seats, ))
+            self.db.execute_query(query, (flight_id, source, destination, seats_taken, seats, ))
             
             rstr = f"Created new flight: {destination}, {source} ID: {flight_id}"
         '''    
@@ -132,10 +145,10 @@ class Flight:
                 flight_id = row[0]
                 source = row[1]
                 destination = row[2]
-                flight_time = row[3]
+                seats_taken = row[3]
                 seats = row[4]
                         
-                self.create_flight(flight_id, source, destination, flight_time, seats)
+                self.create_flight(flight_id, source, destination, seats_taken, seats)
                 flight_count +=1
         return f'loaded {flight_count} flights from {fn}'
     

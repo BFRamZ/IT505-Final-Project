@@ -103,9 +103,9 @@ if __name__=="__main__":
     
     my_db = Database('my_database.sqlite')
     
-    passenger = Passenger(my_db)
-    flight = Flight(my_db)
     
+    flight = Flight(my_db)
+    passenger = Passenger(my_db, flight)
     
     myCLI = CLI()
     
