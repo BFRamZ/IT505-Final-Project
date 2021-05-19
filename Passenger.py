@@ -140,7 +140,7 @@ class Passenger:
                         first = row[1]
                         last = row[2]
                         class_lvl = row[3]
-                        seat_num = row[4]
+                        seat_num = row[9]
                         
                         Passenger.create_passenger(pass_id, first, last, class_lvl, seat_num)
                         
