@@ -124,7 +124,31 @@ class Passenger:
         #query = "PRAGM foreign_keys = ON;"
         #self.db.execute_query(query)
         
-    def __str__(self):
-        return f"{self.debt} {self.passenger_num} {self.title}"
+    def load_passenger_csv(fn):
+        with open(fn) as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            line_count = 0
+            pass_count = 0
+            for row in csv_reader:
+                if line_count == 0:
+                    line_count += 1
+                else:
+                    
+                    if len(row) > 9 and row[0].isnumeric():
+                        
+                        pass_id = row[0]
+                        first = row[1]
+                        last = row[2]
+                        class_lvl = row[3]
+                        seat_num = row[4]
+                        
+                        Passenger.create_passenger(pass_id, first, last, class_lvl, seat_num)
+                        
+                        pass_count += 1
+                        
+                    else:
+                        pass
+                    line_count += 1
+            return f'loaded {pass_count} passengers from {fn}'
     
    
