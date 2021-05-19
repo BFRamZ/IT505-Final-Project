@@ -138,3 +138,25 @@ class Flight:
                 self.create_flight(flight_id, source, destination, flight_time, seats)
                 flight_count +=1
         return f'loaded {flight_count} flights from {fn}'
+    
+    def save_flight_csv(self, fn):
+        
+        with open(fn, mode='w') as output_file:
+            
+            flight_count = 0
+            writer = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            
+            headings = ['Flight ID', 'Source', 'Destination', "Seats Taken", "Seats"]
+            writer.writerow(headings)
+            
+            query = "SELECT * from passengers"
+        
+            passengers = self.db.execute_read_query(query)
+            
+            for row in passengers:
+                
+                
+                writer.writerow(row)
+                flight_count += 1
+                
+        print(f"saved {flight_count} flights to {fn}")
