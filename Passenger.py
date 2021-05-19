@@ -140,4 +140,26 @@ class Passenger:
                 pass_count += 1
         return f'loaded {pass_count} passengers from {fn}'
     
+    def save_passenger_csv(self, fn):
+        
+        with open(fn, mode='w') as output_file:
+            
+            pass_count = 0
+            writer = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            
+            headings = ['Pass ID', 'First', 'Last', "ID", "Seat Num"]
+            writer.writerow(headings)
+            
+            query = "SELECT * from passengers"
+        
+            passengers = self.db.execute_read_query(query)
+            
+            for row in passengers:
+                
+                
+                writer.writerow(row)
+                pass_count += 1
+                
+        print(f"saved {pass_count} passengers to {fn}")
+    
    
